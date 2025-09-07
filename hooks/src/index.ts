@@ -16,13 +16,13 @@ app.post('/hook/catch/:userId/:zapId', async (req, res) => {
 
     // store in DB a new trigger and in the outbox using the transaction
     await client.$transaction(async (tx) => {
-        const run = await client.zapRun.create({
+        const run = await tx.zapRun.create({
             data : {
                 zapId : zapId,
                 metadata: body
             }
         })
-        await client.zapRunOutbox.create({
+        await tx.zapRunOutbox.create({
             data : {
                 zapRunID : run.id
             }
