@@ -47,6 +47,6 @@ async function main (){
             }
         })
 
-    }
+    } 
 
 }
