@@ -21,7 +21,26 @@ async function main () {
     })
 
     await consumer.run({
-        
+        autoCommit: false,
+        eachMessage : async ({ topic,partition, message}) => {
+            console.log({
+                partition,
+                offset: message.offset,
+                value: message.value?.toString()
+            })
+           await new Promise((resolve) => setTimeout(resolve, 1000)) 
+
+           //give some sort of acknowlegdement to the kafka broker commit offset
+           // topic is the queue name
+           // offset is the message id
+              await consumer.commitOffsets([
+                {
+                 topic : TOPIC_NAME,
+                 partition,
+                 offset: (Number(message.offset) + 1).toString()
+                }
+              ])
+        }
     })
 
 }

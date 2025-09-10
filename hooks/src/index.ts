@@ -12,14 +12,15 @@ app.post('/hook/catch/:userId/:zapId', async (req, res) => {
     //path parameters not the query parametes 
     const userId = req.params.userId;
     const zapId = req.params.zapId;
-    const body = req.body;
+    
 
     // store in DB a new trigger and in the outbox using the transaction
     await client.$transaction(async (tx) => {
         const run = await tx.zapRun.create({
             data : {
                 zapId : zapId,
-                metadata: body
+                // safet when you want to store whatever is in the requestr
+                metadata: req.body
             }
         })
         await tx.zapRunOutbox.create({
