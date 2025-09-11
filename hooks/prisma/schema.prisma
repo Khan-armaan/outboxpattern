@@ -20,11 +20,15 @@ model User {
   name    String
   email   String
   password String 
+    zap   Zap[]
 }
 
 model Zap {
   id   String  @id @unique @default(uuid())
-  trigger Trigger?
+  triggerId String
+  userId    Int
+  user User       @relation(fields: [userId], references: [id])
+   trigger Trigger?
   actions Action[]
   zapRun  ZapRun[]
 }
@@ -35,7 +39,7 @@ model Trigger {
   id String @id @default(uuid())
   type  AvailableTriggers @relation(fields: [AvailabletriggerId], references: [id])
   AvailabletriggerId String
-  zapId  String @unique
+  zapId  String @unique // unique to make one to one relation 
   zap   Zap @relation(fields: [zapId], references: [id])
   
 
