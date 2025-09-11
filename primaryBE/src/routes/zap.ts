@@ -13,7 +13,8 @@ router.post('/', authMiddleware, async (req, res) => {
     const parsedData = zapCreateSchema.safeParse(body)
     
     if (!parsedData.success) return res.status(411).json({
-        message: "Invalid inputs"
+        message: "Invalid inputs",
+        error : parsedData.error
     })
   const result = await prisma.$transaction( async (tx) => {
     const zap = await tx.zap.create({
