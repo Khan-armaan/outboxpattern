@@ -1,11 +1,11 @@
 import express from 'express'
-
+import { JWT_SECRET } from '../config';
 import { authMiddleware  } from '../middleware'
 import { Router } from 'express';
 import { SigninSchema,  SignupSchema } from '../types';
-import { PrismaClient } from '../../generated/prisma';
-import { parse } from 'zod';
 import { prisma } from '../db'
+import jwt from "jsonwebtoken"
+
 const router = Router();
 
 
@@ -45,18 +45,40 @@ router.post('/signin', async (req, res) =>  {
 
     if (!parsedBody.success) return res.status(411).send(`incorrect input types ${parsedBody.error}`)
 
-    const userexists = await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
         where : {
             email : parsedBody.data?.email
         }
     })
-    if (!userexists) return res.status(411).send(" THe user is not egistered")
+    if (!user) return res.status(411).send(" THe user is not egistered")
+ 
+    const token = jwt.sign({
+        id : user?.id
 
+    }, JWT_SECRET) 
     
+    res.status(201).json({
+        token :token
+    })
 })
 
-router.get('/user', authMiddleware, (req, res)=> {
+router.get('/user', authMiddleware,async (req, res)=> {
     console.log("this is a get user handler")
+    //@ts-ignore
+    const id = req?.id
+
+    const user = await prisma.user.findFirst({
+        where : {
+            id : id
+        },
+        select :{ // only send these details select 
+            name: true,
+            email : true
+        }
+    })
+    res.status(200).json({
+        user : user
+    })
 })
 
 export const userRouter = router;
