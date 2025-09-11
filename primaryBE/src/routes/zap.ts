@@ -96,7 +96,7 @@ router.get('/', authMiddleware, async(req, res) => {
 router.get('/:zapid', authMiddleware, async (req , res) => {
     console.log("creating a new zap"); 
 
-    const zapId  = req.params.zapid;
+    const zapId  = req.params.zapid; //path parametes 
     const zap = await prisma.zap.findFirst({
         where : {
             id  : zapId,
