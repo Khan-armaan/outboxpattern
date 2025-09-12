@@ -1,10 +1,15 @@
 import Image from "next/image";
-import { AppBar } from "@/components/AppBar";
+import { Appbar } from "@/components/AppBar";
+import { Hero } from "@/components/Hero";
+import { HeroVideo } from "@/components/HeroVideo";
 export default function Home() {
   return (
-  <main className="">
-    <AppBar />
-    
-  </main>
+  <main className="pb-48">
+        <Appbar />
+        <Hero />
+        <div className="pt-8">
+          <HeroVideo />
+        </div>
+    </main>
   );
 }

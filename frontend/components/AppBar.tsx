@@ -1,32 +1,28 @@
-import { LinkButton } from "./buttons/LinkButton"
+"use client";
 import { useRouter } from "next/navigation"
+import { LinkButton } from "./buttons/LinkButton"
 import { PrimaryButton } from "./buttons/PrimaryButton";
 
-
-
-export const AppBar = () => {
+export const Appbar = () => {
     const router = useRouter();
-    return (
-      <div className="flex border-b justify-between"> 
-        <div className="flex flex-col justify-center text-xl font-extrabold">
+    return <div className="flex border-b justify-between p-4">
+        <div className="flex flex-col justify-center text-2xl font-extrabold">
             Zapier
         </div>
-
         <div className="flex">
-           <LinkButton onClick={() => {}}>contact sales</LinkButton>
-            <div>
+            <div className="pr-4">
+                <LinkButton onClick={() => {}}>Contact Sales</LinkButton>
+            </div>
+            <div className="pr-4">
                 <LinkButton onClick={() => {
-                router.push("/login")
-                }}>login</LinkButton>
+                    router.push("/login")
+                }}>Login</LinkButton>
             </div>
             <PrimaryButton onClick={() => {
                 router.push("/signup")
-            }} >
+            }}>
                 Signup
-            </PrimaryButton>
-
+            </PrimaryButton>            
         </div>
-
-      </div>
-    )
+    </div>
 }
