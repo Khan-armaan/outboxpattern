@@ -4,6 +4,8 @@ import { Feature } from "./Feature"
 import { PrimaryButton } from "./buttons/PrimaryButton"
 import { SecondaryButton } from "./buttons/SecondryButton"
 
+
+//while using the flex have to give a child div}
 export const Hero = () => {
     const router = useRouter();
     return <div>
