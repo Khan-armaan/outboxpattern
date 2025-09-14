@@ -9,7 +9,6 @@ router.get('/available', async (req, res) => {
     res.status(200).json({
         availableAction
     })
-
 })
 
 
