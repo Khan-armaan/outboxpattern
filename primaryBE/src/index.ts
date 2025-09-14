@@ -2,6 +2,8 @@ import express from 'express';
 import { userRouter } from './routes/user';
 import  { zapRouter } from './routes/zap'
 import cors from "cors"
+import { actionRouter } from './routes/action';
+import { triggerRouter } from './routes/trigger';
 
 
 const app = express();
@@ -17,6 +19,10 @@ app.get('/', (req, res) => {
 app.use('/api/v1/user', userRouter);
 
 app.use('/api/v1/zap', zapRouter);
+
+app.use('/api/v1/actions', actionRouter);
+
+app.use('/api/v1/trigger', triggerRouter);;
 
 
 
