@@ -27,11 +27,7 @@ router.post('/', authMiddleware, async (req, res) => {
                 name : "action",
                     availableActionid : x.availableActionId,
                     sortingOrder : index,
-                    // type: {
-                    //     connect: {
-                    //         id: x.availableActionId
-                    //     }
-                    // }
+                    metadata : x.actionMetaData ? x.actionMetaData : {}
                 }))
             }
         }
