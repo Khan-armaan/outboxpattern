@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { TokenExpiredError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "./config";
 
 
@@ -21,5 +21,5 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     }
  
 
- 
+
 }

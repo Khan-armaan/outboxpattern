@@ -8,23 +8,28 @@ import { useState } from "react";
 export default function () {
     const [selectedTrigger, setSelectedTrigger] = useState("");
     const [selectedActions, setSelectedActions] = useState<{
+        index : number
         availableActionId : string,
         availableActionName : string
     }[]>([]);
-
+    const [selectedModalIndex, setSelectedModalIndex] = useState<null | number>(null);
   
     return (
         <>
         <Appbar />
         <div className="w-full min-h-screen bg-slate-200 flex flex-col justify-center" >
             <div className="flex justify-center w-full">
-                <ZapCell  name={selectedTrigger ? selectedTrigger : "Trigger"} index={1}/>
+               <ZapCell onClick={() => {
+                setSelectedModalIndex(1)
+               }} name={selectedTrigger ? selectedTrigger : "Trigger"} index={1}/> 
 
             </div>
             
             <div className=" w-full pt-2 pb-2">
                 {selectedActions.map( (action,index) => {
-                    return <ZapCell  name={action ? action.availableActionName : "Action"} index={index + 2}/>
+                    return <ZapCell onClick={() => {
+                        setSelectedModalIndex(action.index)
+                    }}  name={action ? action.availableActionName : "Action"} index={action.index}/>
                 })}
         
             </div>
@@ -32,6 +37,7 @@ export default function () {
                   <div className="">
                   <PrimaryButton onClick={() => {
                 setSelectedActions( a => [...a, {
+                    index : a.length + 2,
                     availableActionId: "",
                     availableActionName : ""
                 }])
@@ -45,9 +51,14 @@ export default function () {
             </div>
           
           
-
+            {selectedModalIndex && <Modal index={selectedModalIndex} />}
         </div>
 
         </>
     )
+}
+function Modal ({index} : {index: number}){
+    return <div>
+
+    </div>
 }
