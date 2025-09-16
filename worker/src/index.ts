@@ -28,7 +28,15 @@ async function main () {
                 offset: message.offset,
                 value: message.value?.toString()
             })
-           await new Promise((resolve) => setTimeout(resolve, 1000)) 
+        //    await new Promise((resolve) => setTimeout(resolve, 1000)) 
+            if (!message.value) {
+                return;
+            }
+
+        const parsedValue = JSON.parse(message.value.toString())
+
+        const zapRunID = parsedValue.zapRunID;
+        const stage = parsedValue.stage;
 
            //give some sort of acknowlegdement to the kafka broker commit offset
            // topic is the queue name

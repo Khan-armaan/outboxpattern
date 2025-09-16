@@ -33,7 +33,7 @@ async function main (){
             // }))
             messages: pendingRows.map(r => {
                 return {
-                    value: r.zapRunID
+                    value: JSON.stringify({zapRunID : r.zapRunID, stage : 0})
                 }
             })
         })

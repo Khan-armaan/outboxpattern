@@ -2,7 +2,7 @@ import  { Router } from "express";
 import { authMiddleware } from "../middleware"
 import  { prisma } from '../db'
 import { zapCreateSchema } from "../types";
-import { treeifyError, ZodFirstPartyTypeKind } from "zod";
+
 
 const router = Router();
 
